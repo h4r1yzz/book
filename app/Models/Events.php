@@ -4,13 +4,42 @@ namespace App\Models;
 
 use MongoDB\Laravel\Eloquent\Model;
 
+/**
+ * Class Events
+ *
+ * The Events model represents contests within the application and interacts with the MongoDB database.
+ *
+ * @package App\Models
+ */
 
 class Events extends Model
 {
+    /**
+     * The MongoDB connection for the model.
+     *
+     * @var string
+     */
     protected $connection = 'mongodb';
+
+    /**
+     * The name of the collection associated with the model.
+     *
+     * @var string
+     */
     protected $collection = 'live_streaming_contest';
+
+    /**
+     * The primary key associated with the model.
+     *
+     * @var string
+     */
     protected $primaryKey = '_id';
     
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
         'contest_id',
         'title',
@@ -39,5 +68,6 @@ class Events extends Model
         'graphics.*.cta',
         'graphics.*.tier',
         'graphics.*.template',
-        ];
+        'tier_system',
+    ];
 }
