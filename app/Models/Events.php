@@ -40,35 +40,4 @@ class Events extends Model
         'graphics.*.tier',
         'graphics.*.template',
         ];
-
-
-/*
-        public function updateGraphic($index, $data)
-{
-    $graphics = $this->graphics;
-    if (isset($graphics[$index])) {
-        $graphics[$index] = $data;
-        $this->graphics = $graphics;
-    }
-}
-
-public function updateGiftBounded($index, $data)
-{
-    $giftsBounded = $this->gifts_bounded;
-    if (isset($giftsBounded[$index])) {
-        $giftsBounded[$index] = $data;
-        $this->gifts_bounded = $giftsBounded;
-    }
-}
-
-*/
-
-
-    /*
-    public function giftsBounded()
-    {
-        return $this->hasMany(Gift::class);
-    }
-
-    */
 }
