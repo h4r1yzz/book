@@ -432,10 +432,17 @@
 
     <script>
 
+        /**
+         * Toggle Text Display based on Checkbox State
+         * This function iterates through checkboxes with class 'myCheck' and corresponding text elements with class 'text'.
+         * It dynamically adjusts the display property of text elements based on the checkbox state.
+         */
         function toggleTextDisplay() {
+        // Retrieve all checkboxes and corresponding text elements
         var checkBoxes = document.querySelectorAll(".myCheck");
         var texts = document.querySelectorAll(".text");
 
+        // Iterate through each checkbox and toggle the display of its corresponding text element
         checkBoxes.forEach(function(checkBox, index) {
             var text = texts[index];
 
@@ -447,19 +454,30 @@
         });
         }
 
+        /**
+         * Close All Pop-Outs
+         * This function hides all elements with class 'pop-out' and an optional backdrop element with id 'backdrop'.
+         */
         function closeAllPopOuts() {
             var popOuts = document.getElementsByClassName('pop-out');
             var backdrop = document.getElementById('backdrop');
 
+            // Hide each pop-out element
             for (var i = 0; i < popOuts.length; i++) {
                 popOuts[i].style.display = 'none';
             }
 
+            // Hide the backdrop if it exists
             if (backdrop) {
                 backdrop.style.display = 'none';
             }
         }
 
+        /**
+         * Show Pop-Out
+         * This function closes all open pop-outs, then displays the selected pop-out element and backdrop.
+         * @param {string} contest_id - The ID of the contest associated with the pop-out to be shown.
+         */
         function showPopOut(contest_id) {
             closeAllPopOuts(); // Close any open pop-outs
             
