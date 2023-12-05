@@ -20,8 +20,8 @@
     <title>Edit Contest</title>
     <style>
         body {
-            background: linear-gradient(135deg, #dfd8d8, #150505); /* Dark background color */
-            color: #fff; /* Text color */
+            background: linear-gradient(135deg, #dfd8d8, #150505); 
+            color: #fff;
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
@@ -30,7 +30,7 @@
 
         a {
             text-align: center;
-            color: #00f; /* Link color */
+            color: #00f; 
             margin-bottom: 20px;
         }
 
@@ -40,7 +40,7 @@
 
         h1 {
             text-align: center;
-            color: #fff; /* Header text color */
+            color: #fff; 
             font-family: Georgia, 'Times New Roman', Times, serif;
             text-shadow: 2px 2px;
         }
@@ -49,7 +49,7 @@
             max-width: 50%;
             margin: 20px auto;
             padding: 20px;
-            background: linear-gradient(135deg,rgb(78, 19, 19), rgb(31, 2, 2) ); /* Form background color */
+            background: linear-gradient(135deg,rgb(78, 19, 19), rgb(31, 2, 2) ); 
             border-radius: 8px;
         }
 
@@ -64,8 +64,8 @@
             padding: 10px;
             margin-bottom: 15px;
             box-sizing: border-box;
-            background-color: #555; /* Input background color */
-            color: #fff; /* Input text color */
+            background-color: #555; 
+            color: #fff;
             border: none;
             border-radius: 4px;
         }
@@ -82,14 +82,13 @@
         }
 
         .alert {
-            background-color: #f00; /* Alert background color */
-            color: #fff; /* Alert text color */
+            background-color: #f00; 
+            color: #fff; 
             padding: 10px;
             margin-bottom: 15px;
             border-radius: 4px;
         }
 
-        /* Add your additional styles for graphics containers, side-by-side elements, etc. */
         .graphic-container {
             margin-bottom: 20px;
         }
@@ -105,9 +104,9 @@
         }
 
         .standout-label {
-            color: #ffffff; /* Change the color to make labels stand out */
-            font-weight: bold; /* Add bold font weight for emphasis */
-            font-size: 1.3em; /* Adjust font size for emphasis */
+            color: #ffffff;
+            font-weight: bold; 
+            font-size: 1.3em; 
         }
 
         .isCountdownRequiredCheckbox:checked + .text {
@@ -117,7 +116,6 @@
         .isCountdownRequiredCheckbox:not(:checked) + .text {
             display: none;
         }
-
 
         .color-input-container {
             display:flex;
@@ -133,14 +131,16 @@
         }
 
         .color-label {
-            margin-bottom: 5px; /* Adjust as needed */
+            margin-bottom: 5px;
         }
     </style>
 </head>
 <body>
+    <!-- Page title -->
     <h1>Edit contest</h1>
     
     <div>
+        <!-- Display validation errors -->
         @if($errors->any())
         <ul>
             @foreach($errors->all() as $error)
@@ -149,20 +149,22 @@
         </ul>
         @endif
     </div>
+    <!-- Contest form -->
     <form method="post" action="{{ route('contests.update', $event->id) }}" enctype="multipart/form-data">
 
+        <!-- Contest view link -->
         <a href="{{ route('contests.post') }}" style="color: #008080; text-decoration: underline; font-weight: bold;">View Contest</a>
 
+        <!-- CSRF Token -->
         @csrf
         @method('put')
 
         <br><br>
-        {{-- Display tier system dropdown --}}
+        <!-- Select Tier System -->
         <div style="display:flex; gap:10px;">
             <label class="standout-label" for="tier_system">Select Tier System:</label>
             <select name="tier_system" id="tier_system" required>
                 <!-- Populate options dynamically based on the tiers in contest_tier.php -->
-
                 <!--retreive the tier system-->
                 @foreach(Config::get('contest_tier.tier_system') as $tier)
                     <option value="{{ (int)$tier['id'] }}" data-toggle="tooltip" title="{{ json_encode($tier['tiers']) }}">{{ (int)$tier['id'] }}</option>
@@ -171,6 +173,7 @@
         </div>
         <div id="tierAttributesContainer"></div>
     
+        <!-- Tier Attributes Modal -->
         <div class="modal fade" id="tierAttributesModal" tabindex="-1" role="dialog" aria-labelledby="tierAttributesModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -190,12 +193,13 @@
             </div>
         </div>
 
-
+        <!-- Contest Title -->
         <div>
             <label class="standout-label" for="title">Title:</label>
             <input type="text" name="title" id="title" required value="{{ old('title', $event->title) }}">
         </div>
 
+        <!-- Start and End Dates -->
         <div style="display:flex ; gap: 30%;">
             <div>
                 <label class="standout-label" for="contest_start_at">Start <span style="color: red;">*</span></label>
@@ -208,6 +212,7 @@
             </div>
         </div>
 
+        <!-- Display Start and End Dates -->
         <div style="display:flex ; gap: 30%;">
             <div>
                 <label class="standout-label" for="contest_display_start_at">Display Start <span style="color: red;">*</span></label>
@@ -221,6 +226,7 @@
         </div>    
         <br>
 
+        <!-- Contest Type -->
         <div style="display:flex; gap:10px;">
             <label class="standout-label" for="contest_type">Type:</label>
             <select name="contest_type" required>
@@ -230,6 +236,7 @@
         </div>
         <br>
 
+        <!-- Gift Section -->
         <div>
             <label class="standout-label" for="gifts_bounded">Gift:</label>
             <button type="button" style="background-color: #00f; color:#fff; cursor: pointer;" id="addGift">Add Gift</button>
@@ -255,7 +262,7 @@
         </div>
 
         
-        <!-- Graphic -->
+        <!-- Gifter Graphics Main Banner -->
         <div class="graphic-container">
             <label class="standout-label" for="graphics">Gifter Banner:</label>
             <label type="button" id="addGifterGraphic"></label>
@@ -298,11 +305,12 @@
 
         @if($event->graphics)
                     @php
+                        // Find the first matching graphic for leaderboard_banner and viewers
                         $matchingGraphic = collect($event->graphics)->first(function ($graphic) {
                             return $graphic['type'] == 'leaderboard_banner' && $graphic['targeted_audiences'] == 'streamers';
                         });
                     @endphp
-        
+                <!-- Check if a matching graphic exists -->
                 @if($matchingGraphic)
             <!-- Streamer Graphics Main Banner -->
             <div class="graphic-container">
@@ -310,25 +318,29 @@
                 <label class="standout-label" for="graphics">Main:</label>
                 <div id="streamerGraphicFieldsMain">
                     <div id="gifterGraphicFields">
-                        
                         <!-- Initial streamer graphic field -->
                         <div class="streamerGraphic">
-
+                            <!-- Display existing image if asset_url is set -->
                             @isset($matchingGraphic['asset_url'])
                                 <img id="streamerImagePreview" src="{{ asset($matchingGraphic['asset_url']) }}" alt="Existing Graphic Image" style="max-width: 200px; max-height: 200px;">
                             @endisset
+                            <!-- Input field for uploading a new image -->
                             <input type="file" name="streamerGraphics[0][asset_url]" accept="image/*" onchange="previewImage(this, 'streamerImagePreview')">
+                            <!-- Checkbox for Is Countdown Required -->
                             <div class="side-by-side">
                                 <label for="is_countdown_required1" style="width: 50%;" >Is Countdown Required:</label>
                                 <input type="hidden" name="streamerGraphics[0][is_countdown_required]" value="0">
                                 <input type="checkbox" name="streamerGraphics[0][is_countdown_required]" class="isCountdownRequiredCheckbox myCheck" onclick="toggleTextDisplay()" value="1"{{ old("streamerGraphics.0.is_countdown_required", $matchingGraphic['is_countdown_required'] ?? false) ? ' checked' : '' }}>
                             </div>
+                            <!-- Color input container for Title and Countdown Font Color -->
                             <div class="color-input-container">
+                                <!-- Title Font Color -->
                                 <div class="color-input-group">
                                     <label class="color-label titleFontColorLabel">Title Font Color</label>
                                     <input type="color" name="streamerGraphics[0][title_font_color]" class="titleFontColor" placeholder="Title Font Color (e.g., #RRGGBB)" pattern="^#[0-9A-Fa-f]{6}$" value="{{ old('streamerGraphics.0.title_font_color', $matchingGraphic['title_font_color'] ?? '#000000') }}" required onchange="updateColorCode(this, 'titleFontColorCodeStreamer')">
                                     <p id="titleFontColorCodeStreamer" class="additionalText1">Selected Color Code: <span>{{ old('streamerGraphics.0.title_font_color', $matchingGraphic['title_font_color'] ?? '#000000') }}</span></p>
                                 </div>
+                                <!-- Countdown Font Color -->
                                 <div class="color-input-group">
                                     <label class="color-label countdownFontColorLabel">Countdown Font Color</label>
                                     <input type="color" name="streamerGraphics[0][countdown_font_color]" class="countdownFontColor" placeholder="Countdown Font Color (e.g., #RRGGBB)" pattern="^#[0-9A-Fa-f]{6}$" value="{{ old('streamerGraphics.0.countdown_font_color', $matchingGraphic['countdown_font_color'] ?? '#000000') }}" required onchange="updateColorCode(this, 'countdownFontColorCodeStreamer')">
@@ -352,7 +364,7 @@
                         });
                     @endphp
                 @if($matchingTier1Graphic)
-                    <!-- Streamer Graphics Tier 1 Banner -->
+                <!-- Streamer Graphics Tier 1 Banner -->
                 <div class="graphic-container">
                 <label class="standout-label" for="graphics">Tier 1:</label>
                 <div id="streamerGraphicFieldsMain">
@@ -397,7 +409,7 @@
                         });
                     @endphp
                 @if($matchingTier2Graphic)
-                    <!-- Streamer Graphics Tier 2 Banner -->
+                <!-- Streamer Graphics Tier 2 Banner -->
                 <div class="graphic-container">
                 <label class="standout-label" for="graphics">Tier 2:</label>
                 <div id="streamerGraphicFieldsMain">
@@ -439,7 +451,7 @@
                             return $graphic['type'] == 'leaderboard_banner' && $graphic['targeted_audiences'] == 'streamers' &&
                                     isset($graphic['tier']) && // Check if 'tier' exists
                                     is_numeric($graphic['tier']) && // Check if 'tier' is a number
-                                    $graphic['tier'] == 3; // Check if 'tier' is equal to 2
+                                    $graphic['tier'] == 3; // Check if 'tier' is equal to 3
                         });
                     @endphp
                 @if($matchingTier3Graphic)
@@ -485,7 +497,7 @@
                     @endphp
         
                 @if($matchingFloatingGifterGraphic)
-                    <!-- Streamer Graphics Tier 3 Banner -->
+                    <!-- Floating Banner Gifter -->
                     <div class="graphic-container">
                     <label class="standout-label" for="graphics">Floating Gifter Banner:</label>
                     <div id="streamerGraphicFieldsMain">
@@ -617,14 +629,12 @@
             <div class="graphic-container">
                 <label class="standout-label" for="graphics">Coin Graphics Banner:</label>
                 <div id="coinGraphicFields">
-                    
                     @if($event->graphics)
                             @php
                             $firstMatchingCoinGraphic = collect($event->graphics)->first(function ($graphic) {
                                 return $graphic['type'] == 'coins_contest_banner' && $graphic['targeted_audiences'] == 'all';
                             });
                         @endphp
-            
                         @if($firstMatchingCoinGraphic)
                         <!-- Initial streamer graphic field -->
                         <div class="coinGraphic">
@@ -648,12 +658,6 @@
 
     
     <script>
-        const selectedColorCode = "{{ old('selectedColorCode', $selectedColorCode ?? '') }}";
-        if (selectedColorCode) {
-            document.getElementById('titleFontColorCodeStreamerGifter').style.display = 'block';
-            document.getElementById('titleFontColorCodeStreamerGifter').innerHTML = 'Selected Color Code: <span style="color:' + selectedColorCode + ';">' + selectedColorCode + '</span>';
-        }
-
         /**
          * Updates the color code display based on the input value.
          * @param {HTMLInputElement} input - The input element representing the color.
