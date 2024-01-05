@@ -1,0 +1,94 @@
+<?php
+return [
+	'tier_system' => [
+		[
+			'id' => 1,
+			'type' => 'tier_by_lifetime_diamonds',
+			'tiers' => [
+				[
+					'tier' => 1,
+					'amount_min' => 200000, 
+					'amount_max' => 9999999999,
+					'badge' => 'https://image.sgrbk.com/livestreaming/contest/tiers/1.png'
+				],
+				[
+					'tier' => 2,
+					'amount_min' => 80000,
+					'amount_max' => 200000,
+					'badge' => 'https://image.sgrbk.com/livestreaming/contest/tiers/2.png'
+				],
+				[
+					'tier' => 3,
+					'amount_min' => 0, 
+					'amount_max' => 80000,
+					'badge' => 'https://image.sgrbk.com/livestreaming/contest/tiers/3.png'
+				],
+			]
+		],
+		[
+			'id' => 2,
+			'type' => 'tier_by_lifetime_diamonds',
+			'tiers' => [
+				[
+					'tier' => 1,
+					'amount_min' => 200000,
+					'amount_max' => 9999999999,
+					'badge' => 'https://image.sgrbk.com/livestreaming/contest/tiers/1.png'
+				],
+				[
+					'tier' => 2,
+					'amount_min' => 30000,
+					'amount_max' => 200000,
+					'badge' => 'https://image.sgrbk.com/livestreaming/contest/tiers/2.png'
+				],
+				[
+					'tier' => 3,
+					'amount_min' => 0,
+					'amount_max' => 30000,
+					'badge' => 'https://image.sgrbk.com/livestreaming/contest/tiers/3.png'
+				],
+			]
+		],
+		[
+			'id' => 3,
+			'type' => 'tier_by_lifetime_diamonds',
+			'tiers' => [
+				[
+					'tier' => 1,
+					'name' => 'Golden',
+					'amount_min' => 150000,
+					'amount_max' => 9999999999,
+					'badge' => 'https://image.sgrbk.com/livestreaming/contest/tiers/1.png'
+				],
+				[
+					'tier' => 2,
+					'name' => 'Silver',
+					'amount_min' => 10000,
+					'amount_max' => 149999,
+					'badge' => 'https://image.sgrbk.com/livestreaming/contest/tiers/2.png'
+				],
+			]
+		],
+		[
+			'id' => 4,
+			'type' => 'tier_by_lifetime_diamonds',
+			'tiers' => [
+				[
+					'tier' => 1,
+					'name' => 'Golden',
+					'amount_min' => 150000,
+					'amount_max' => 9999999999,
+					'badge' => 'https://image.sgrbk.com/livestreaming/contest/tiers/1.png'
+				],
+				[
+					'tier' => 2,
+					'name' => 'Silver',
+					'amount_min' => 0,
+					'amount_max' => 149999,
+					'badge' => 'https://image.sgrbk.com/livestreaming/contest/tiers/2.png'
+				],
+			]
+		],
+	],
+];
+?>
