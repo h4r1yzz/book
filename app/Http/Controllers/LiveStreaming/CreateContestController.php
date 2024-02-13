@@ -14,6 +14,8 @@ use App\Models\Events;
  */
 class CreateContestController
 {
+    /* hai
+    */
     /**
      * Renders the view for creating a new contest.
      *
